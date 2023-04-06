@@ -23,11 +23,20 @@ module.exports = {
     updateUser: async function(req, res) {
         await mongodb.waitForDbConnection();
 
-        
+        await User.updateOne(
+            {_id: req.params.id},
+            {$set: req.body}
+        )
+        .then(() => res.redirect('/users-mgmt'))
     },
-    deleteUser: async function(req, res) {
+    deleteUser: async function(req, res, next) {
+        console.log(req.params.id)
         await mongodb.waitForDbConnection();
 
-        
+        await User.deleteOne({_id: req.params.id})
+        // res.redirect('/users-mgmt')
+    
+        next()
+
     }
 }

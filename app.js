@@ -5,13 +5,22 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+const methodOverride = require('method-override')
+
+app.use(methodOverride('_method'))
+
+// //passport
+// require('./config/passport')
+// const passport = require('passport')
+// app.use(passport.initialize());
+// //
+
 // set view engine to ejs
 app.set('view engine', 'ejs')
 // use res.render to load up an ejs view file
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
 
 // get home page
 app.get('/', function(req, res) {
@@ -22,21 +31,28 @@ app.get('/', function(req, res) {
 app.get('/sign-in', function(req, res) {
   res.render('pages/sign-in')
 })
+// app.post('/sign-in', 
+//   passport.authenticate("local-login", {
+//     successReturnToOrRedirect: "/",
+//     failureRedirect: "/sign-in",
+//     failureFlash: true,
+//     badRequestMessage: 'Invalid email or password.'
+//   })
+// )
 
 // get sign-up page
 app.get('/sign-up', function(req, res) {
   res.render('pages/sign-up')
 })
-app.post('/users-mgmt', async function(req, res) {
-  User.createUser()
-})
+app.post('/sign-up', User.createUser)
 
 // get users-mgmt page
 app.get('/users-mgmt', async function(req, res) {
   const users = await User.getAllUsers()
   res.render('pages/users-mgmt', {data: users})
 })
-
+app.put('/users-mgmt/:id', User.updateUser) // -> post
+app.post('/users-mgmt/delete/:id', User.deleteUser) // -> psot or delete
 
 
 app.listen(port, () => {
