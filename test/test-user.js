@@ -1,9 +1,17 @@
 var mongodb = require('../info/mongodb')
-var User = require('../models/users')
+var User = require('../models/user-model')
 
 
 async function test_insert_data() {
     await mongodb.waitForDbConnection();
+
+    let user0 = new User({
+        email: "test0@gmail.com",
+        password: "onlyfortesting0",
+        name: "Test0",
+        salt: Date.now()
+    });
+    await user0.save();
 
     let user1 = new User({
         email: "test@gmail.com",
@@ -21,6 +29,16 @@ async function test_insert_data() {
     });
 
     await user2.save();
+
+    let user3 = new User({
+        email: "test03@gmail.com",
+        password: "onlyfortesting03",
+        name: "Test03",
+        salt: Date.now()
+    });
+
+    await user3.save();
+
     console.log("Save data success");
 }
 test_insert_data();
@@ -42,7 +60,7 @@ test_update_data();
 async function test_delete_data() {
     await mongodb.waitForDbConnection();
 
-    await User.deleteOne({email: "test02@gmail.com"});
+    await User.deleteOne({email: "test0@gmail.com"});
     
     console.log("Delete data success"); 
 } 

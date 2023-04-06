@@ -1,10 +1,5 @@
 const mongodb = require('../info/mongodb')
-const User = require('../models/user-model')
-const express = require('express')
-const app = express()
-
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+const User = require('../models/users')
 
 module.exports = {
     getAllUsers: async function() {
@@ -14,11 +9,14 @@ module.exports = {
     createUser: async function(req, res) {
         await mongodb.waitForDbConnection();
 
-        const userData = req.body;
-        const user = new User(userData)
+        const user = new User({
+            name: req.body.userName,
+            email: req.body.userEmail,
+            password: req.body.userPassword,
+            salt: Date.now()
+        })
 
-        user.save()
-            .then(() => res.redirect('/sign-in'))
+        return user.save()
     },
     updateUser: async function(req, res) {
         await mongodb.waitForDbConnection();

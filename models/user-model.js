@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true},
     password: {type: String, required: true},
     salt: String //khong luu truc tiep password, dung salt de tang bao mat
+}, {
+    timestamps: true
 })
 
 const User = mongoose.model('User', userSchema);
