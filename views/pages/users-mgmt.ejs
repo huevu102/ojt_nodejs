@@ -1,132 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('../partials/head') %>
+  	<%- include('../partials/head') %>
 
-  <body>
-    <!-- header -->
-    <%- include('../partials/header') %>
+	<body>
+		<!-- header -->
+		<%- include('../partials/header') %>
 
-    <!-- main -->
-    <main>
-      <div class="container mt-5">
-        <h2 style="text-align: center;" class="mb-5">USERS MANAGEMENT</h2>
-        <table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">No.</th>
-					<th scope="col">Name</th>
-					<th scope="col">Email</th>
-					<th scope="col">Password</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% for(let i = 0; i < data.length; i++) {%>
-				<tr>
-				<th scope="row"><%=i+1%></th>
-				<td><%=data[i].name%></td>
-				<td><%=data[i].email%></td>
-				<td><%=data[i].password%></td>
-				<td>
-					<!-- edit user info -->
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#edit<%=i+1%>">Edit</button>
-					<div class="modal fade" id="edit<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-						<form action="/users-mgmt/<%=data[i]._id%>?_method=PUT" method="POST" class="m-4">
-
-
-
-							<!-- <input type="hidden" value="update" name="action"> -->
-							<!-- update value = delete when clicked button delete -->
-							<!-- check if/else delete/update -> action -->
+		<!-- main -->
+		<main>
+			<div class="container mt-5">
+				<h2 style="text-align: center;" class="mb-5">USERS MANAGEMENT</h2>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Password</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% for(let i = 0; i < data.length; i++) {%>
+						<tr>
+						<th scope="row"><%=i+1%></th>
+						<td><%=data[i].name%></td>
+						<td><%=data[i].email%></td>
+						<td><%=data[i].password%></td>
+						<td>
+							<!-- edit user info -->
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#edit<%=i+1%>">Edit</button>
+							<div class="modal fade" id="edit<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								<form action="/users-mgmt/update/<%=data[i]._id%>" method="POST" class="m-4">
 
 
 
-							<h3 class="mt-3">Edit user</h3>
-							<div class="form-group mt-3">
-								<label for="exampleInputName1">Name</label>
-								<textarea class="form-control" name="name"><%=data[i].name%></textarea>
+									<!-- <input type="hidden" value="update" name="action"> -->
+									<!-- update value = delete when clicked button delete -->
+									<!-- check if/else delete/update -> action -->
+
+
+
+									<h3 class="mt-3">Edit user</h3>
+									<div class="form-group mt-3">
+										<label for="exampleInputName1">Name</label>
+										<textarea class="form-control" name="name"><%=data[i].name%></textarea>
+									</div>
+									<div class="form-group mt-3">
+										<label for="exampleInputEmail1">Email address</label>
+										<textarea class="form-control" name="email"><%=data[i].email%></textarea>
+									</div>
+									<div class="form-group mt-3">
+										<label for="exampleInputPassword1">Password</label>
+										<textarea class="form-control" name="password"><%=data[i].password%></textarea>
+									</div>
+									<div class="mt-3">
+										<button type="submit mt-3" class="btn btn-primary">Save change</button>
+									</div>
+								</form>
+								</div>
 							</div>
-							<div class="form-group mt-3">
-								<label for="exampleInputEmail1">Email address</label>
-								<textarea class="form-control" name="email"><%=data[i].email%></textarea>
 							</div>
-							<div class="form-group mt-3">
-								<label for="exampleInputPassword1">Password</label>
-								<textarea class="form-control" name="password"><%=data[i].password%></textarea>
-							</div>
-							<div class="mt-3">
-								<button type="submit mt-3" class="btn btn-primary">Save change</button>
-							</div>
-						</form>
-						</div>
-					</div>
-					</div>
 
-					<!-- delete user -->
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#delete-user-modal<%=i+1%>" data-id="<%=data[i]._id%>">
-					Delete
-					</button>
-					<!-- Modal -->
-					<div class="modal fade" id="delete-user-modal<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-						<div class="modal-header"> 
-							<h5 class="modal-title" id="exampleModalLabel">Delete this user?</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
+							<!-- delete user -->
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#delete<%=i+1%>">
+							Delete
 							</button>
-						</div>
-						<div class="modal-body">
-							...
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-							<button onclick="doDeleteUser('<%=data[i]._id%>')" id="btn-delete-user" type="button" class="btn btn-primary">Delete</button>
-						</div>
-						</div>
-					</div>
-					</div>
-					<!-- delete hidden form -->
-					<!-- <form name="delete-form" method="POST"> -->
-				</td>
-				</tr>
-				<%}%>
-			</tbody>
-        </table>
-      </div>
-    </main>
-  </body>
+							<!-- delete Modal -->
+							<div class="modal fade" id="delete<%=i+1%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								<div class="modal-header"> 
+									<h5 class="modal-title" id="exampleModalLabel">Delete this user?</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									...
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+									<button onclick="doDeleteUser('<%=data[i]._id%>')" id="btn-delete-user" type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+								</div>
+								</div>
+							</div>
+							</div>
+						</td>
+						</tr>
+						<%}%>
+					</tbody>
+				</table>
+			</div>
+		</main>
+	</body>
 
-  <!-- footer -->
-  <%- include('../partials/footer'); %>
+	<!-- footer -->
+	<%- include('../partials/footer'); %>
 
-  <!-- delete user -->
-  <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var userId
-    //   var btnDelete = document.getElementById('btn-delete-user')
-    //   var deleteForm = document.forms('delete-form')
-
-    //   $('#delete-user-modal').on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget) // Button that triggered the modal
-    //     userId = button.data('id') // Extract info from data-* attributes
-    //   }) 
-
-    //   btnDelete.onclick = function() {
-    //     deleteForm.action = '/users-mgmt/' + userId + '?_method=DELETE'
-    //     deleteForm.submit()
-    //   }
-
-    // })
-
+	<!-- delete user -->
+	<script>
 		const doDeleteUser = (_id) => {
-			console.log(typeof _id)
 			fetch(`/users-mgmt/delete/${_id}`, {method: 'POST'}) // function call api, method delete
-				.then((res) => {console.log(res.status)})
+			location.reload()
 		}
-
   	</script>
 </html>

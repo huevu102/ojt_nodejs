@@ -30,13 +30,9 @@ module.exports = {
         .then(() => res.redirect('/users-mgmt'))
     },
     deleteUser: async function(req, res, next) {
-        console.log(req.params.id)
         await mongodb.waitForDbConnection();
 
         await User.deleteOne({_id: req.params.id})
-        // res.redirect('/users-mgmt')
-    
-        next()
-
+        // .then(() => res.redirect('/users-mgmt')) //tai sao khong chay??
     }
 }

@@ -5,10 +5,6 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-const methodOverride = require('method-override')
-
-app.use(methodOverride('_method'))
-
 // //passport
 // require('./config/passport')
 // const passport = require('passport')
@@ -51,8 +47,8 @@ app.get('/users-mgmt', async function(req, res) {
   const users = await User.getAllUsers()
   res.render('pages/users-mgmt', {data: users})
 })
-app.put('/users-mgmt/:id', User.updateUser) // -> post
-app.post('/users-mgmt/delete/:id', User.deleteUser) // -> psot or delete
+app.post('/users-mgmt/update/:id', User.updateUser)
+app.post('/users-mgmt/delete/:id', User.deleteUser)
 
 
 app.listen(port, () => {
