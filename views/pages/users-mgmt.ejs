@@ -96,16 +96,16 @@
 				</table>
 			</div>
 		</main>
+
+		<!-- footer -->
+		<%- include('../partials/footer'); %>
+
+		<!-- delete user -->
+		<script>
+			const doDeleteUser = (_id) => {
+				fetch(`/users-mgmt/delete/${_id}`, {method: 'POST'}) // function call api, method delete
+				location.reload() // tim cach khac
+			}
+		</script>
 	</body>
-
-	<!-- footer -->
-	<%- include('../partials/footer'); %>
-
-	<!-- delete user -->
-	<script>
-		const doDeleteUser = (_id) => {
-			fetch(`/users-mgmt/delete/${_id}`, {method: 'POST'}) // function call api, method delete
-			location.reload() // tim cach khac
-		}
-  	</script>
 </html>

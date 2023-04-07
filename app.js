@@ -5,11 +5,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// //passport
-// require('./config/passport')
-// const passport = require('passport')
-// app.use(passport.initialize());
-// //
+const passport = require('passport')
 
 // set view engine to ejs
 app.set('view engine', 'ejs')
@@ -27,18 +23,17 @@ app.get('/', function(req, res) {
 app.get('/sign-in', function(req, res) {
   res.render('pages/sign-in')
 })
-// app.post('/sign-in', 
-//   passport.authenticate("local-login", {
-//     successReturnToOrRedirect: "/",
-//     failureRedirect: "/sign-in",
-//     failureFlash: true,
-//     badRequestMessage: 'Invalid email or password.'
-//   })
-// )
+app.post('/sign-in', function(req, res) {
+  res.render('pages/2fa-verify')
+})
+app.post('/2fa-verify', passport.authenticate('2fa-totp', {
+  successRedirect: 'page/home/:id',
+  failureRedirect: 'pages/home'
+}));
 
 // get sign-up page
 app.get('/sign-up', function(req, res) {
-  res.render('pages/sign-up')
+  res.render('pages/home')
 })
 app.post('/sign-up', User.createUser)
 

@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('../partials/head') %>
-    <body>
-        <!-- header -->
-        <%- include('../partials/header') %>
+  <%- include('../partials/head') %>
 
+  <body>
+    <!-- header -->
+    <%- include('../partials/header') %>
 
-        <!-- main -->
-        <main>
-            <div class="container">
-                <h1>This is home page</h1>
-            </div>
-        </main>
+    <!-- main -->
+    <main>
+      <div class="container mt-5">
+        <h1>HOME PAGE</h1>
+        <div class="mt-5">
+          <button type="button" class="btn btn-primary"><a href="/sign-in" style="color: white; text-decoration: none;">Sign-in</a></button>
+          <a href="/sign-up">Do not have account, SIGN UP now?</a>
+        </div>
+			</div>
+    </main>
 
-
-        <!-- footer -->
-        <%- include('../partials/footer'); %>
-    </body>
+    <!-- footer -->
+    <%- include('../partials/footer'); %>
+  </body>
 </html>

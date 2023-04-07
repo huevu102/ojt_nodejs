@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+
+  <body>
+    <!-- header -->
+    <%- include('../partials/header') %>
+
+    <!-- main -->
+    <main>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <form>
+              <div class="form-group">
+                <label for="verify-passcode">Verify passcode</label>
+                <input type="text" class="form-control mt-3" id="verify-passcode" placeholder="Enter passcode">
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            </form>
+          </div>
+          <div class="col-3"></div>
+        </div>
+			</div>
+    </main>
+
+    <!-- footer -->
+    <%- include('../partials/footer'); %>
+  </body>
+</html>
